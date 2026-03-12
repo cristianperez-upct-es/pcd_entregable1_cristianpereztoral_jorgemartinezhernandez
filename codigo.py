@@ -33,7 +33,7 @@ class NaveEstelar(Nave):
         self.clase = clase
 
     def get_info(self): # Añadir al esquema
-        return f"Nave estelar: {self.nombre} | Clase: {self.clase.name} | Tripulación: {self.tripulacion} | Pasaje: {self.pasaje}"
+        return f"Nave estelar: {self.nombre} | Clase: {self.clase.name} | Tripulación: {self.tripulacion} | Pasaje: {self.pasaje} | Piezas de repuesto: {[(pieza.nombre, cantidad) for pieza, cantidad in self.piezas_repuesto.items()]}"
     
 class EstacionEspacial(Nave):
     def __init__(self, id_combate, clave_transmision, nombre, piezas_repuesto, tripulacion, pasaje, ubicacion):
@@ -67,6 +67,9 @@ class Imperio:
     
     def set_unidad(self, unidad): # Añadir al esquema los atributos
         self.unidades.append(unidad)
+
+    def __str__(self):
+        return f'Nombre: {self.nombre} | Unidades: {[unidad.nombre for unidad in self.unidades]} | Almacenes: {[almacen.nombre for almacen in self.almacenes]}'
 
 class Almacen:
     def __init__(self, nombre, catalogo, ubicacion):
