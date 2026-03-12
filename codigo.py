@@ -11,7 +11,7 @@ class UnidadesDeCombate(metaclass=ABCMeta):
         self.id_combate = id_combate
         self.clave_transmision = clave_transmision
     
-    @abstractmethod
+    @abstractmethod # Añadir al esquema
     def get_info(self):
         pass
 
@@ -21,6 +21,9 @@ class Nave(UnidadesDeCombate):
         self.nombre = nombre
         self.piezas_repuesto = piezas_repuesto
 
+    def adquirir_repuesto(self, almacen, repuesto, cantidad):
+        almacen.quitar_repuesto(repuesto, cantidad)
+        self.piezas_repuesto[repuesto] += cantidad
 
 class NaveEstelar(Nave):
     def __init__(self, id_combate, clave_transmision, nombre, piezas_repuesto, tripulacion, pasaje, clase):
@@ -29,7 +32,7 @@ class NaveEstelar(Nave):
         self.pasaje = pasaje
         self.clase = clase
 
-    def get_info(self):
+    def get_info(self): # Añadir al esquema
         return f"Nave estelar: {self.nombre} | Clase: {self.clase.name} | Tripulación: {self.tripulacion} | Pasaje: {self.pasaje}"
     
 class EstacionEspacial(Nave):
@@ -39,7 +42,7 @@ class EstacionEspacial(Nave):
         self.pasaje = pasaje
         self.ubicacion = ubicacion
 
-    def get_info(self):
+    def get_info(self): # Añadir al esquema
         return f"Nave estelar: {self.nombre} | Tripulación: {self.tripulacion} | Ubicación: {self.ubicacion}"
     
 class CazaEstelar(Nave):
@@ -47,14 +50,23 @@ class CazaEstelar(Nave):
         super().__init__(id_combate, clave_transmision, nombre, piezas_repuesto)
         self.dotacion = dotacion
 
-    def get_info(self):
+    def get_info(self): # Añadir al esquema
         return f"Nave estelar: {self.nombre} | Dotación: {self.dotacion}"
     
 class Imperio:
-    def __init__(self, nombre, unidades, almacen):
+    def __init__(self, nombre, unidades, almacenes): # Añadir al esquema (almacenes lista) 
         self.nombre = nombre
         self.unidades = unidades
-        self.almacen = almacen
+        self.almacenes = almacenes
+
+    def get_unidades(self):
+        return self.unidades
+    
+    def get_almacenes(self): # Añadir al esquema
+        return self.almacenes
+    
+    def set_unidad(self, unidad): # Añadir al esquema los atributos
+        self.unidades.append(unidad)
 
 class Almacen:
     def __init__(self, nombre, catalogo, ubicacion):
@@ -62,9 +74,20 @@ class Almacen:
         self.catalogo = catalogo
         self.ubicacion = ubicacion
 
+    def quitar_repuesto(self, repuesto, cantidad): # Añadir al esquema
+        self.catalogo[repuesto] -= cantidad 
+
+    def adquirir_repuesto(self, repuesto, cantidad):
+        self.catalogo[repuesto] += cantidad
+
+    def consultar_stock(self):
+        return self.catalogo
+
 class Repuesto:
-    def __init__(self, nombre, proveedor, _cantidad, precio):
+    def __init__(self, nombre, proveedor, precio): # Añadir al esquema
         self.nombre = nombre
         self.proveedor = proveedor
-        self._cantidad = _cantidad
         self.precio = precio
+
+    def __str__(self):
+        return f'Nombre: {self.nombre} | Proveedor: {self.proveedor} |  Precio: {self.precio}'
