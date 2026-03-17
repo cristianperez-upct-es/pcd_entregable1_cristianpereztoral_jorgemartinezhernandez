@@ -4,27 +4,27 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>654</x>
-      <y>396</y>
+      <x>216</x>
+      <y>468</y>
       <w>174</w>
       <h>102</h>
     </coordinates>
     <panel_attributes>Nave
 --
 + nombre:str
-+ piezas_repuesto: list[str]
++ piezas_repuesto: str | int
++ clave_transmision: str | int
 --
-adquirir_repuesto(almacen:Almacen, 
-repuesto:Repuesto, cantidad:int)
-get_info()
++ adquirir_repuesto(almacen:Almacen, 
++ repuesto:Repuesto, cantidad:int)
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>438</x>
-      <y>156</y>
+      <x>0</x>
+      <y>228</y>
       <w>174</w>
       <h>102</h>
     </coordinates>
@@ -32,14 +32,16 @@ get_info()
 --
 + tripulacion: int
 + pasaje:int
-+ Ubicacion: list[str]</panel_attributes>
++ Ubicacion: list[str]
+--
+get_info()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>666</x>
-      <y>18</y>
+      <x>228</x>
+      <y>90</y>
       <w>174</w>
       <h>102</h>
     </coordinates>
@@ -54,22 +56,24 @@ SOBERANO</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>876</x>
-      <y>156</y>
+      <x>438</x>
+      <y>228</y>
       <w>174</w>
       <h>102</h>
     </coordinates>
     <panel_attributes>CazaEstelar
 --
 + dotacion: int
+--
+get_info()
  </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>528</x>
-      <y>252</y>
+      <x>90</x>
+      <y>324</y>
       <w>222</w>
       <h>156</h>
     </coordinates>
@@ -79,8 +83,8 @@ SOBERANO</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>732</x>
-      <y>252</y>
+      <x>294</x>
+      <y>324</y>
       <w>222</w>
       <h>156</h>
     </coordinates>
@@ -90,8 +94,8 @@ SOBERANO</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>666</x>
-      <y>156</y>
+      <x>228</x>
+      <y>228</y>
       <w>174</w>
       <h>102</h>
     </coordinates>
@@ -99,14 +103,16 @@ SOBERANO</panel_attributes>
 --
 + tripulacion: int
 + pasaje: int
-+ clase: EClase</panel_attributes>
++ clase: EClase
+--
++ get_info()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>732</x>
-      <y>252</y>
+      <x>294</x>
+      <y>324</y>
       <w>18</w>
       <h>156</h>
     </coordinates>
@@ -116,8 +122,8 @@ SOBERANO</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>648</x>
-      <y>552</y>
+      <x>210</x>
+      <y>624</y>
       <w>174</w>
       <h>102</h>
     </coordinates>
@@ -126,15 +132,16 @@ UnidadesCombate
 --
 + id_combate:str
 + clave_transmision: float
-  
+--
+get_info()
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>726</x>
-      <y>492</y>
+      <x>288</x>
+      <y>564</y>
       <w>18</w>
       <h>72</h>
     </coordinates>
@@ -144,26 +151,27 @@ UnidadesCombate
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>954</x>
-      <y>402</y>
+      <x>516</x>
+      <y>474</y>
       <w>228</w>
       <h>102</h>
     </coordinates>
     <panel_attributes>Almacen 
 --
 + nombre: str
-+ catalogo: dict{Respuesto.nombre: int, Repuesto.cantidad}
-+ ubicacion: text
++ catalogo: dict{Repuesto, cantidad:int}
++ ubicacion: str
 --
-consultar_stock()
-reponer_repuesto(repuesto:Repuesto, cantidad: int))</panel_attributes>
++ consultar_stock()
++ adquirir_repuesto(repuesto:Repuesto, cantidad: int)
++ quitar_repuesto(repuesto:Repuesto, cantidad: int)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1008</x>
-      <y>558</y>
+      <x>570</x>
+      <y>630</y>
       <w>174</w>
       <h>102</h>
     </coordinates>
@@ -171,17 +179,16 @@ reponer_repuesto(repuesto:Repuesto, cantidad: int))</panel_attributes>
 --
 + nombre: str
 + proveedor: str
-- cantidad: int
 + precio: int
 --
-get_info()</panel_attributes>
++ __str__()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1080</x>
-      <y>498</y>
+      <x>642</x>
+      <y>570</y>
       <w>30</w>
       <h>72</h>
     </coordinates>
@@ -193,8 +200,8 @@ m2=0..n</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>816</x>
-      <y>444</y>
+      <x>378</x>
+      <y>516</y>
       <w>204</w>
       <h>198</h>
     </coordinates>
@@ -206,8 +213,8 @@ m2=0..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>738</x>
-      <y>114</y>
+      <x>300</x>
+      <y>186</y>
       <w>18</w>
       <h>54</h>
     </coordinates>
@@ -217,42 +224,42 @@ m2=0..*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>606</x>
-      <y>708</y>
+      <x>168</x>
+      <y>780</y>
       <w>300</w>
       <h>162</h>
     </coordinates>
     <panel_attributes>Imperio
 --
 + nombre: str
-+ unidades: list[UnidadesCombate.id_combate]
-+ almcen: Almacen
++ unidades: list[UnidadesCombate]
++ almcen: list[Almacen]
 --
-get_unidades()
-get_almacen()
-set_unidad()
-  
++ get_unidades()
++ get_almacen()
++ set_unidad()
++ __str__()  
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>528</x>
-      <y>438</y>
-      <w>138</w>
-      <h>384</h>
+      <x>90</x>
+      <y>672</y>
+      <w>132</w>
+      <h>222</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1..*
 m2=0..*</panel_attributes>
-    <additional_attributes>130.0;610.0;10.0;610.0;10.0;10.0;210.0;10.0</additional_attributes>
+    <additional_attributes>130.0;340.0;10.0;340.0;10.0;10.0;200.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>900</x>
-      <y>450</y>
+      <x>462</x>
+      <y>522</y>
       <w>342</w>
       <h>372</h>
     </coordinates>
