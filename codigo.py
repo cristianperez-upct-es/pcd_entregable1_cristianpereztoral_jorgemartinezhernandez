@@ -174,33 +174,58 @@ class Imperio:
 
 
 if __name__ == '__main__':
+    print("=== INICIALIZACIÓN DE DATOS ===")
+    # Creación de Repuestos y testeo de su método __str__
+    motor = Repuesto('Motor Iónico', 'Sienar', 15000.5)
+    laser = Repuesto('Cañón Láser', 'Kuat', 5000)
+    escudo = Repuesto('Deflector', 'Corellia', 12000.75)
     
-    bolt = Repuesto('bolt', 'paco', 10)
-    wing = Repuesto('wing', 'francisco', 50432)
+    print("Repuestos creados:")
+    print(f" - {motor}")
+    print(f" - {laser}")
 
-    milenialfalcon = NaveEstelar('1', 1, 'milenial_falcon', {bolt: 3, wing: 1}, ['Lonely Han', 'Chewbacca'], 1, Clase.EJECUTOR)
-    deathstar = EstacionEspacial('2', 2, 'death_star', {bolt: 100}, ['Darth Vader', 'Darth Maul', 'Palpatine'], 2, 'espacio')
-    xwing = CazaEstelar('3', 3, 'x-wing', {wing: 2}, 3)
-
-    droiddepot = Almacen('Droid Depot', {bolt: 100, wing: 200}, 'Tatooine')
-
-    imperio = Imperio('imperio estelar', [deathstar, xwing], [droiddepot])
-
-    print("--- INFO IMPERIO ---")
-    print(imperio)
-    imperio.set_unidad(xwing)
+    # Creación de Almacén y testeo de sus métodos
+    almacen_imperial = Almacen('Base Starkiller', {motor: 10, laser: 50}, 'Ilum')
+    print(f"\nStock inicial Almacén: {almacen_imperial.consultar_stock()}")
     
-    print("\n--- INFO NAVE Y ALMACÉN ---")
-    print(milenialfalcon.get_info())
-    print("Stock inicial Almacén:", droiddepot.consultar_stock())
+    # Probamos a adquirir un repuesto que ya existe (Suma cantidad)
+    almacen_imperial.adquirir_repuesto(motor, 5)
+    # Probamos a adquirir un repuesto nuevo en el almacén (Crea entrada)
+    almacen_imperial.adquirir_repuesto(escudo, 20)
     
-    milenialfalcon.adquirir_repuesto(droiddepot, bolt, 2)
-    
-    print("\n--- DESPUÉS DE LA COMPRA ---")
-    print(milenialfalcon.get_info())
-    print("Stock final Almacén:", droiddepot.consultar_stock())
+    print(f"Stock Almacén tras adquisiciones: {almacen_imperial.consultar_stock()}")
 
-#    print("\n--- FORZANDO ERRORES ---")
-#    milenialfalcon.adquirir_repuesto(droiddepot, bolt, 5000) # Lanzará ValueError: Stock insuficiente
-#    caza_falso = CazaEstelar('4', 4, 'caza-roto', {wing: 2}, -5) # Lanzará ValueError por dotación negativa
-#    imperio.set_unidad("TIE Fighter") # Lanzará TypeError: no es un objeto UnidadesDeCombate
+    # Creación de Naves (Hijas de UnidadesDeCombate)
+    destructor = NaveEstelar('ID-001', 111, 'Devastador', {motor: 2}, ['Darth Vader', 'Almirante Piett'], 5000, Clase.EJECUTOR)
+    estacion = EstacionEspacial('ID-002', 222, 'Estrella de la Muerte', {laser: 100}, ['Gran Moff Tarkin'], 10000, 'Órbita de Endor')
+    tie_fighter = CazaEstelar('ID-003', 333, 'TIE Avanzado', {laser: 2}, 1)
+
+    print("\n=== MÉTODOS GET_INFO() ===")
+    print(destructor.get_info())
+    print(estacion.get_info())
+    print(tie_fighter.get_info())
+
+    # Transacciones (Naves adquiriendo repuestos de Almacenes)
+    print("\n=== COMPRAS DE PARTES ===")
+    # Tie fighter compra láseres (ya tenía láseres en su diccionario)
+    tie_fighter.adquirir_repuesto(almacen_imperial, laser, 4)
+    # Tie fighter compra un escudo (no tenía escudos, se crea la clave en su diccionario)
+    tie_fighter.adquirir_repuesto(almacen_imperial, escudo, 1)
+    
+    print(tie_fighter.get_info())
+    print(f"Stock Almacén tras venta a TIE Fighter: {almacen_imperial.consultar_stock()}")
+
+    # Gestión del Imperio Galáctico
+    print("\n=== MÉTODOS DE IMPERIO ===")
+    imperio = Imperio('Imperio Galáctico', [destructor, estacion], [almacen_imperial])
+    print(imperio) # Test de su __str__
+    
+    imperio.set_unidad(tie_fighter) # Añadimos unidad nueva
+    
+    print("\nLista de unidades:")
+    for u in imperio.get_unidades():
+        print(f" -> {u.nombre}")
+        
+    print("Lista de almacenes:")
+    for a in imperio.get_almacenes():
+        print(f" -> {a.nombre}")
